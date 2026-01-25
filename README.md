@@ -2,14 +2,14 @@
 
 RF (what user can or cannot do)
 
-- [ ] User must be able to create a new transaction;
-- [ ] User must be able to get a summary of their account;
-- [ ] User must be able to list all transactions that have occurred;
-- [ ] User must be able to view a single transaction;
+- [x] User must be able to create a new transaction;
+- [x] User must be able to get a summary of their account;
+- [x] User must be able to list all transactions that have occurred;
+- [x] User must be able to view a single transaction;
 
 RN (Business Rules)
 
-- [ ] Transaction can be of type credit which will add to the total value or debit which will subtract;
+- [x] Transaction can be of type credit which will add to the total value or debit which will subtract;
 - [ ] It must be possible to identify users between requests;
 - [ ] User can only view transactions that they created;
 
