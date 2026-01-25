@@ -1,12 +1,10 @@
 import Fastify from "fastify";
-import { knex } from "../infra/database/database.js";
 import { env } from "./environment.js";
+import { transactionsRoutes } from "./routes/transactions.js";
 
 const app = Fastify();
 
-app.get("/hello", async (_req, _res) =>
-  console.log(await knex("sqlite_schema").select("*"))
-);
+app.register(transactionsRoutes);
 
 app
   .listen({ port: env.PORT })
