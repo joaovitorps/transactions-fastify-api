@@ -37,6 +37,8 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-    "moduleResolution": "nodenext"
+    "moduleResolution": "nodenext",
+    "emitDeclarationOnly": true,
+    "allowImportingTsExtensions": true
   }
 }

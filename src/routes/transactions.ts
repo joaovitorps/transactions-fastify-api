@@ -73,6 +73,12 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
         .first();
 
       return { summary };
-    }
+    },
   );
+
+  app.post("/migrations", async (_request, reply) => {
+    await knex.migrate.latest();
+
+    return reply.status(200).send();
+  });
 };
