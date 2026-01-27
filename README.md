@@ -17,12 +17,14 @@ Simple REST API for managing financial transactions, built during the Rocketseat
 
 ## Tech Stack
 
-- **Runtime**: Node.js
-- **Framework**: Fastify
-- **Database**: SQLite (via Knex)
-- **Language**: TypeScript
-- **Validation**: Zod
-- **Test**: Vitest (with `supertest` for mock requests)
+- **Runtime**: Node.js - https://nodejs.org/
+- **Framework**: Fastify - https://fastify.dev/
+- **Database**: SQLite (via Knex) - https://knexjs.org/
+- **Language**: TypeScript - https://www.typescriptlang.org/
+- **Validation**: Zod - https://zod.dev/
+- **Environment**: dotenv - https://www.npmjs.com/package/dotenv
+- **Test**: Vitest (with `supertest` for mock requests) - https://vitest.dev/ (https://www.npmjs.com/package/supertest)
+- **Build**: tsup - https://tsup.egoist.dev/
 
 ## Getting Started
 
@@ -34,11 +36,7 @@ npm install
 
 - **Configure environment**
 
-Create a `.env` file (see `.env.example`) and set:
-
-```bash
-NODE_ENV=development
-```
+Create a `.env` file (see `.env.example`). You can set custom values for: `DATABASE_URL` and `PORT`
 
 - **Run database migrations**
 
@@ -53,6 +51,22 @@ npm run dev
 ```
 
 The API will be available on the port configured in `src/environment.ts`.
+
+## Build & Production
+
+- **Build the project with tsup**
+
+```bash
+npm run build
+```
+
+This will generate compiled `minified` JavaScript in the `dist` directory configured in `package.json`.
+
+- **Start the built app (example)**
+
+```bash
+node dist/server.js
+```
 
 ## Useful Endpoints
 

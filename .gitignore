@@ -1,7 +1,12 @@
+# npm
 node_modules
 
-app.db
-test.db
+# db files
+*.db
 
+# environment
 .env
 .env.test
+
+# build
+dist
