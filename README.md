@@ -19,7 +19,7 @@ Simple REST API for managing financial transactions, built during the Rocketseat
 
 - **Runtime**: Node.js - https://nodejs.org/
 - **Framework**: Fastify - https://fastify.dev/
-- **Database**: SQLite (via Knex) - https://knexjs.org/
+- **Database**: SQLite (dev) PostgreSQL (prod) (via Knex) - https://knexjs.org/
 - **Language**: TypeScript - https://www.typescriptlang.org/
 - **Validation**: Zod - https://zod.dev/
 - **Environment**: dotenv - https://www.npmjs.com/package/dotenv
