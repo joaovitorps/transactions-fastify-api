@@ -4,7 +4,7 @@ import * as z from "zod";
 if (process.env.NODE_ENV === "test") {
   config({ path: ".env.test" });
 } else {
-  config({ quiet: false });
+  config({ quiet: true });
 }
 
 const Env = z.object({
@@ -13,6 +13,7 @@ const Env = z.object({
   DATABASE_CLIENT: z.enum(["sqlite3", "pg"]).default("sqlite3"),
   // coerce here will convert to str to number at runtime since env var is always read like string
   PORT: z.coerce.number().default(8000),
+  HOST: z.string().default("localhost"),
 });
 
 const result = Env.safeParse(process.env);
