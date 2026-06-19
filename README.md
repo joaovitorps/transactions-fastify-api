@@ -8,12 +8,15 @@ Simple REST API for managing financial transactions, built during the Rocketseat
 - [x] User must be able to get a summary of their account
 - [x] User must be able to list all transactions that have occurred
 - [x] User must be able to view a single transaction
+- [x] User must be able to delete a transaction
 
 ## Business Rules (RN)
 
 - [x] Transaction can be of type **credit** (adds to the total) or **debit** (subtracts from the total)
 - [x] It must be possible to identify users between requests
 - [x] User can only view transactions that they created
+- [x] User can only delete transactions that they created
+- [x] User can create up to 20 transactions per session
 
 ## Tech Stack
 
@@ -70,10 +73,12 @@ node dist/server.js
 
 ## Useful Endpoints
 
-All routes are prefixed with `/transactions` (see `src/server.ts`).
+All routes are prefixed with `/transactions` (see `src/app.ts`).
 
 - **Create transaction**
   - `POST /transactions`
+  - Creates a `sessionId` cookie automatically when one does not exist.
+  - Returns `400` when the current session already has 20 transactions.
   - Body:
 
 ```json
@@ -89,11 +94,33 @@ All routes are prefixed with `/transactions` (see `src/server.ts`).
 
 - **Get single transaction**
   - `GET /transactions/:id`
+  - Returns only transactions that belong to the current `sessionId`.
+
+- **Delete transaction**
+  - `DELETE /transactions/:id`
+  - Deletes only transactions that belong to the current `sessionId`.
 
 - **Get summary**
   - `GET /transactions/summary`
 
 - **Run migrations**
   - `POST /transactions/migrations`
+  - Response:
+
+```json
+{
+  "message": "Migrations run successfully."
+}
+```
+
+  - When there are no pending migrations, the message is:
+
+```json
+{
+  "message": "No migrations to run."
+}
+```
 
 Some endpoints rely on a `sessionId` cookie to associate transactions with a user/session. The cookie is created automatically on the first `POST /transactions` request.
+
+If the database tables do not exist yet, the API returns `400` with a message asking you to run migrations.
