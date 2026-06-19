@@ -26,6 +26,14 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
       });
     }
 
+    const transactions = await knex("transactions")
+      .select()
+      .where("session_id", sessionId);
+
+    if(transactions.length >= 20 ) {
+      return reply.code(400).send({error: "You reached the limit of transactions creation."});
+    }
+
     await knex("transactions").insert({
       id: randomUUID(),
       title: title,
@@ -33,7 +41,7 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
       session_id: sessionId,
     });
 
-    reply.code(201).send();
+    return reply.code(201).send();
   });
 
   app.get("/", { preHandler: [checkSessionIdExists] }, async (request) => {
