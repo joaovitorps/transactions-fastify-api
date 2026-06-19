@@ -69,6 +69,21 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
     return { transaction };
   });
 
+  app.delete("/:id", { preHandler: [checkSessionIdExists] }, async (request) => {
+    const reqParamsSchema = z.object({
+      id: z.uuidv4(),
+    });
+
+    const { id } = reqParamsSchema.parse(request.params);
+    const sessionId = request.cookies.sessionId as string;
+
+    const transaction = await knex("transactions")
+      .where({ id, session_id: sessionId })
+      .delete();
+
+    return { transaction };
+  });
+
   app.get(
     "/summary",
     { preHandler: [checkSessionIdExists] },
