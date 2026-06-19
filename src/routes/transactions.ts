@@ -100,8 +100,10 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
   );
 
   app.post("/migrations", async (_request, reply) => {
-    await knex.migrate.latest();
+    const result: [number, string[]] = await knex.migrate.latest();
 
-    return reply.status(200).send();
+    const message = result[1].length === 0 ? "No migrations to run." : "Migrations run successfully."
+
+    return reply.status(200).send({message});
   });
 };
