@@ -10,6 +10,7 @@ export const app = fastify();
 app.register(fastifyCors, {
   origin: env.WEB_DOMAIN,
   credentials: true,
+  methods: ["GET", "POST", "DELETE"],
 })
 
 app.setErrorHandler((error,_,res) => {
