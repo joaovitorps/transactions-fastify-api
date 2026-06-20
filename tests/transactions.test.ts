@@ -131,4 +131,35 @@ describe("transaction routes", () => {
       }),
     });
   });
+
+  test("can delete transaction", async () => {
+    const transactionCreditBody = {
+      title: "New transaction",
+      amount: 5000,
+      type: "credit",
+    };
+
+    const response = await request(app.server)
+      .post("/transactions")
+      .send(transactionCreditBody);
+
+    const cookies = response.get("Set-Cookie") as string[];
+
+
+    const listOfTransactionsResponse = await request(app.server)
+      .get("/transactions")
+      .set("Cookie", cookies)
+      .expect(200);
+
+    const transactionId = listOfTransactionsResponse.body.transactions[0].id;
+
+    const transactionResponse = await request(app.server)
+      .delete(`/transactions/${transactionId}`)
+      .set("Cookie", cookies)
+      .expect(200);
+
+    expect(transactionResponse.body).toEqual({
+      transaction: 1,
+    });
+  });
 });
