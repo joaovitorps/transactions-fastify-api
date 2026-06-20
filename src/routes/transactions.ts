@@ -4,6 +4,8 @@ import z from "zod";
 
 import { knex } from "../../infra/database/database";
 import { checkSessionIdExists } from "../middlewares/check-session-id-exists";
+import { env } from "../environment";
+import { CookieSerializeOptions } from "@fastify/cookie";
 
 export const transactionsRoutes = async (app: FastifyInstance) => {
   app.post("/", async (request, reply) => {
@@ -20,10 +22,17 @@ export const transactionsRoutes = async (app: FastifyInstance) => {
     if (!sessionId) {
       sessionId = randomUUID();
 
-      reply.cookie("sessionId", sessionId, {
+      const cookieObj: CookieSerializeOptions = {
         path: "/",
         maxAge: 60 * 60 * 24 * 7, // 7 days
-      });
+      }
+      
+      if (env.NODE_ENV === "production") {
+        cookieObj.sameSite = "none"
+        cookieObj.secure = true
+      }
+
+      reply.cookie("sessionId", sessionId, );
     }
 
     const transactions = await knex("transactions")

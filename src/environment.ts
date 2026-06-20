@@ -14,6 +14,7 @@ const Env = z.object({
   // coerce here will convert to str to number at runtime since env var is always read like string
   PORT: z.coerce.number().default(8000),
   HOST: z.string().default("localhost"),
+  WEB_DOMAIN: z.string().default("localhost:3001"),
 });
 
 const result = Env.safeParse(process.env);

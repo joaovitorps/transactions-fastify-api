@@ -1,9 +1,16 @@
 import fastify from "fastify";
 import cookies from "@fastify/cookie";
+import fastifyCors from "@fastify/cors";
 
 import { transactionsRoutes } from "./routes/transactions";
+import { env } from "./environment";
 
 export const app = fastify();
+
+app.register(fastifyCors, {
+  origin: env.WEB_DOMAIN,
+  credentials: true,
+})
 
 app.setErrorHandler((error,_,res) => {
   if(error instanceof Error) {
